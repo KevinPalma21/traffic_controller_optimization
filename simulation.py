@@ -3,9 +3,14 @@ import time
 import sys
 import threading
 import random
+import tkinter as tk
 
-print("Hello World")  # For testing
-# Please work
+def get_Size():
+    root = tk.Tk()
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    root.destroy()
+    return screen_width,screen_height
 
 # Initialize pygame
 pygame.init()
@@ -14,13 +19,12 @@ pygame.init()
 background_image = pygame.image.load("images\Grid_background.png")
 
 # Set screen dimensions
-screenWidth = 2360
-screenHeight = 1640
-screenSize = (screenWidth, screenHeight)
+monitor_width , monitor_height = get_Size()
+screenSize = (monitor_width, monitor_height)
 
 # Rotate the background image
 background_Rotated = pygame.transform.rotate(background_image, 90)
-background_new_size = pygame.transform.smoothscale(background_Rotated,(2360,1640))
+background_new_size = pygame.transform.smoothscale(background_Rotated,(screenSize))
 # Create the screen and set the caption
 screen = pygame.display.set_mode(screenSize)
 pygame.display.set_caption("SIMULATION")
