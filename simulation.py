@@ -30,10 +30,19 @@ def initialize_pygame():
 
 def load_images():
     images = {
-        "north": pygame.image.load("images/car_northside.png"),
-        "south": pygame.image.load("images/car_southside.png"),
-        "east": pygame.image.load("images/car_eastside.png"),
-        "west": pygame.image.load("images/car_westside.png"),
+        "car_north": pygame.image.load("images/car_northside.png"),
+        "car_south": pygame.image.load("images/car_southside.png"),
+        "car_east": pygame.image.load("images/car_eastside.png"),
+        "car_west": pygame.image.load("images/car_westside.png"),
+        "motorcycle_north": pygame.image.load("images/motorcycle_northside.png"),
+        "motorcycle_south": pygame.image.load("images/motorcycle_southside.png"),
+        "motorcycle_east": pygame.image.load("images/motorcycle_eastside.png"),
+        "motorcycle_west": pygame.image.load("images/motorcycle_westside.png"),
+        "truck_north": pygame.image.load("images/truck_northside.png"),
+        "truck_south": pygame.image.load("images/truck_southside.png"),
+        "truck_east": pygame.image.load("images/truck_eastside.png"),
+        "truck_west": pygame.image.load("images/truck_westside.png"),
+
         "background": pygame.image.load("images/Grid_background.png")
     }
     return images
@@ -45,52 +54,52 @@ def generate_cars(screen_width, screen_height):
     # Adjusted car positions after scaling
     car_positions = {
         "east": [
-            [(int(7 * width_adjustment_percent), int(560 * height_adjustment_percent)), 
-             (int(1195 * width_adjustment_percent), int(560 * height_adjustment_percent))],
-            [(int(7 * width_adjustment_percent), int(599 * height_adjustment_percent)), 
-             (int(1195 * width_adjustment_percent), int(599 * height_adjustment_percent))],
-            [(int(7 * width_adjustment_percent), int(1100 * height_adjustment_percent)), 
-             (int(1195 * width_adjustment_percent), int(1100 * height_adjustment_percent))],
-            [(int(7 * width_adjustment_percent), int(1139 * height_adjustment_percent)), 
-             (int(1195 * width_adjustment_percent), int(1139 * height_adjustment_percent))]
+            [(int(4 * width_adjustment_percent), int(552 * height_adjustment_percent)), 
+             (int(1191 * width_adjustment_percent), int(552 * height_adjustment_percent))],
+            [(int(4 * width_adjustment_percent), int(591 * height_adjustment_percent)), 
+             (int(1191 * width_adjustment_percent), int(591 * height_adjustment_percent))],
+            [(int(4 * width_adjustment_percent), int(1092 * height_adjustment_percent)), 
+             (int(1191 * width_adjustment_percent), int(1092 * height_adjustment_percent))],
+            [(int(4 * width_adjustment_percent), int(1131 * height_adjustment_percent)), 
+             (int(1191 * width_adjustment_percent), int(1131 * height_adjustment_percent))]
         ],
         "south": [
-            [(int(319 * width_adjustment_percent), int(6 * height_adjustment_percent)), 
-             (int(1500 * width_adjustment_percent), int(6 * height_adjustment_percent))],
-            [(int(355 * width_adjustment_percent), int(6 * height_adjustment_percent)), 
-             (int(1537 * width_adjustment_percent), int(6 * height_adjustment_percent))],
-            [(int(740 * width_adjustment_percent), int(6 * height_adjustment_percent)), 
-             (int(1920 * width_adjustment_percent), int(6 * height_adjustment_percent))],
-            [(int(777 * width_adjustment_percent), int(6 * height_adjustment_percent)), 
-             (int(1958 * width_adjustment_percent), int(6 * height_adjustment_percent))]
+            [(int(309 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
+             (int(1490 * width_adjustment_percent), int(4 * height_adjustment_percent))],
+            [(int(350 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
+             (int(1530 * width_adjustment_percent), int(4 * height_adjustment_percent))],
+            [(int(730 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
+             (int(1910 * width_adjustment_percent), int(4 * height_adjustment_percent))],
+            [(int(770 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
+             (int(1953 * width_adjustment_percent), int(4 * height_adjustment_percent))]
         ],
         "west": [
-            [(int(1157 * width_adjustment_percent), int(482 * height_adjustment_percent)), 
-             (int(2350 * width_adjustment_percent), int(482 * height_adjustment_percent))],
-            [(int(1157 * width_adjustment_percent), int(520 * height_adjustment_percent)), 
-             (int(2350 * width_adjustment_percent), int(520 * height_adjustment_percent))],
-            [(int(1157 * width_adjustment_percent), int(1021 * height_adjustment_percent)), 
-             (int(2350 * width_adjustment_percent), int(1021 * height_adjustment_percent))],
-            [(int(1157 * width_adjustment_percent), int(1060 * height_adjustment_percent)), 
-             (int(2350 * width_adjustment_percent), int(1060 * height_adjustment_percent))]
+            [(int(1127 * width_adjustment_percent), int(472 * height_adjustment_percent)), 
+             (int(2317 * width_adjustment_percent), int(472 * height_adjustment_percent))],
+            [(int(1127 * width_adjustment_percent), int(510 * height_adjustment_percent)), 
+             (int(2317 * width_adjustment_percent), int(510 * height_adjustment_percent))],
+            [(int(1127 * width_adjustment_percent), int(1011 * height_adjustment_percent)), 
+             (int(2317 * width_adjustment_percent), int(1011 * height_adjustment_percent))],
+            [(int(1127 * width_adjustment_percent), int(1050 * height_adjustment_percent)), 
+             (int(2317 * width_adjustment_percent), int(1050 * height_adjustment_percent))]
         ],
         "north": [
-            [(int(399 * width_adjustment_percent), int(1625 * height_adjustment_percent)), 
-             (int(1580 * width_adjustment_percent), int(1625 * height_adjustment_percent))],
-            [(int(437 * width_adjustment_percent), int(1625 * height_adjustment_percent)), 
-             (int(1618 * width_adjustment_percent), int(1625 * height_adjustment_percent))],
-            [(int(819 * width_adjustment_percent), int(1625 * height_adjustment_percent)), 
-             (int(2000 * width_adjustment_percent), int(1625 * height_adjustment_percent))],
-            [(int(858 * width_adjustment_percent), int(1625 * height_adjustment_percent)), 
-             (int(2039 * width_adjustment_percent), int(1625 * height_adjustment_percent))]
+            [(int(389 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
+             (int(1570 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
+            [(int(430 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
+             (int(1608 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
+            [(int(809 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
+             (int(1990 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
+            [(int(851 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
+             (int(2032 * width_adjustment_percent), int(1600 * height_adjustment_percent))]
         ]
     }
 
     cars = []
     for direction, points in car_positions.items():
         for static, ml in points:
-            cars.append(Car(static[0], static[1], direction))
-            cars.append(Car(ml[0], ml[1], direction))
+            cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+            cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
 
     return cars
 
@@ -101,11 +110,15 @@ def process_background(background, screen_size):
     return scaled_background
 
 class Car:
-    def __init__(self, x, y, direction):
+    def __init__(self, x, y, direction, width_percent, height_percent):
         self.x = x
         self.y = y
         self.direction = direction
         self.image = pygame.image.load(f"images/car_{direction}side.png")
+        original_width , original_height = self.image.get_size()
+        scaled_width = int(original_width * width_percent)
+        scaled_height = int(original_height * height_percent)
+        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
 
     def move(self, dx, dy):
         self.x += dx
@@ -121,7 +134,6 @@ def main():
     screen_width, screen_height = screen.get_size()
     background = process_background(images["background"], (screen_width, screen_height))
 
-    # Dynamically calculate scaling percentages
     width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
 
     cars = generate_cars(screen_width, screen_height)
@@ -138,9 +150,10 @@ def main():
             car.render(screen)
 
         pygame.display.flip()
-        time.sleep(0.02)  # Add a short delay for smooth rendering
+        time.sleep(0.02)
 
     pygame.quit()
+
 
 
 if __name__ == "__main__":
