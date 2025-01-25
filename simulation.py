@@ -120,13 +120,44 @@ class Car:
         scaled_height = int(original_height * height_percent)
         self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
 
-    def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
+    def move(self):
+        if self.direction == "east":
+            self.x += 2
+        elif self.direction == "south":
+            self.y += 2
+        elif self.direction == "west":
+            self.x -= 2
+        elif self.direction == "north":
+            self.y -= 2
 
     def render(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
+def vehicle_vanishing(vehicle,x,y, screen_width, screen_height):
+    width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
+    vanishing_points = [
+        (int(389 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(809 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(1570 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(1990 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(430 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(851 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(1608 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(2032 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(309 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(730 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1490 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1910 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(350 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(770 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1530 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1953 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1127 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
+        (int(2317 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
+        (int(1127 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
+        (int(2317 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
+        (int(4 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
+        (int(1191 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
+        (int(4 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1050 * height_adjustment_percent)) ,
+        (int(1191 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1050 * height_adjustment_percent))
+    ]
+
+    for vx , vy in vanishing_points:
+        if abs(x-vx) <=1 and abs (y - vy) <= 1:
+            return True
+    return False
 def main():
     screen = initialize_pygame()
     images = load_images()
@@ -146,8 +177,12 @@ def main():
 
         screen.blit(background, (0, 0))
 
-        for car in cars:
-            car.render(screen)
+        for car in cars[:]:
+            if vehicle_vanishing(car, car.x, car.y, screen_width, screen_height):
+                cars.remove(car)
+            else:
+                car.move()
+                car.render(screen)
 
         pygame.display.flip()
         time.sleep(0.02)
