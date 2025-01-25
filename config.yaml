@@ -1,0 +1,9 @@
+path: C:/Users/palma/Downloads/data
+train: images/train
+val: images/train
+
+#classes
+names:
+ 0: car
+ 1: motorcycle
+ 2: truck
