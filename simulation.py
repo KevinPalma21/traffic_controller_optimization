@@ -4,6 +4,7 @@ import threading
 import pygame
 import sys
 import tkinter as tk
+from threading import Thread
 
 # Function to get dynamic screen size
 def get_screen_size():
@@ -47,7 +48,7 @@ def load_images():
     }
     return images
 
-def generate_cars(screen_width, screen_height):
+def generate_cars(cars, screen_width, screen_height):
     # Calculate scaling percentages using the function
     width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
 
@@ -95,13 +96,42 @@ def generate_cars(screen_width, screen_height):
         ]
     }
 
-    cars = []
-    for direction, points in car_positions.items():
-        for static, ml in points:
-            cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-            cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+    while True:  # Continuously generate cars
+        direction = random.choice(list(car_positions.keys()))
+        static, ml = random.choice(car_positions[direction])
 
-    return cars
+        cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+        cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+
+        time.sleep(1)
+
+
+
+    # cars = []
+    # for _ in range(100):  # Run for 100 seconds
+    #     direction = random.choice(list(car_positions.keys()))
+    #     static, ml = random.choice(car_positions[direction])
+
+    #     cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+    #     cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+
+    #     time.sleep(1)
+
+
+    # direction = random.choice(list(car_positions.keys()))
+    # static , ml = random.choice(car_positions[direction])
+    # cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+    # cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+    # time.sleep(0.5)
+
+    #return cars
+
+    # for direction, points in car_positions.items():
+    #     for static, ml in points:
+    #         cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+    #         cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+
+
 
 
 def process_background(background, screen_size):
@@ -167,7 +197,12 @@ def main():
 
     width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
 
-    cars = generate_cars(screen_width, screen_height)
+    #cars = generate_cars(screen_width, screen_height)
+
+    cars = []
+    car_thread = Thread(target=generate_cars, args=(cars, screen_width, screen_height))
+    car_thread.daemon = True
+    car_thread.start()
 
     running = True
     while running:
