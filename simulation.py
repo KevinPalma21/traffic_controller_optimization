@@ -21,6 +21,10 @@ def calculate_scaling_percentages(screen_width, screen_height):
     height_adjustment_percent = screen_height / original_height
     return width_adjustment_percent, height_adjustment_percent
 
+def save_time_to_file(filename, time_value):
+    with open(filename, "a") as file:
+        file.write(f"{time_value}\n")
+        file.close()
 
 def initialize_pygame():
     pygame.init()
@@ -48,7 +52,36 @@ def load_images():
     }
     return images
 
-def generate_cars(cars, screen_width, screen_height):
+vehicle_timers = {}
+################################################################################################################################################
+def vehicle_vanishing(vehicle,x,y, screen_width, screen_height):
+    width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
+    vanishing_points = [
+        (int(389 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(809 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(1570 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(1990 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(430 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(851 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(1608 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(2032 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
+        (int(309 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(730 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1490 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1910 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(350 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(770 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1530 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1953 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
+        (int(1127 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
+        (int(2317 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
+        (int(1127 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
+        (int(2317 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
+        (int(4 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
+        (int(1191 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
+        (int(4 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1050 * height_adjustment_percent)) ,
+        (int(1191 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1050 * height_adjustment_percent))
+    ]
+
+    for vx , vy in vanishing_points:
+        if abs(x-vx) <=1 and abs (y - vy) <= 1:
+            return True
+    return False
+########################################################################################################################################################
+
+def generate_vehicles(vehicles, screen_width, screen_height):
     # Calculate scaling percentages using the function
     width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
 
@@ -100,9 +133,17 @@ def generate_cars(cars, screen_width, screen_height):
         direction = random.choice(list(car_positions.keys()))
         static, ml = random.choice(car_positions[direction])
 
-        cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-        cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+        vehicle_type = random.choice([Car, Truck, Motorcycle])
 
+        static_vehicle = (vehicle_type(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
+        ml_vehicle = (vehicle_type(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
+
+        vehicles.append(static_vehicle)
+        vehicles.append(ml_vehicle)
+
+        #start timers
+        vehicle_timers[static_vehicle] = time.time()
+        vehicle_timers[ml_vehicle] = time.time()
         time.sleep(1)
 
 
@@ -138,12 +179,12 @@ def process_background(background, screen_size):
     rotated_background = pygame.transform.rotate(background, 90)
     scaled_background = pygame.transform.smoothscale(rotated_background, screen_size)
     return scaled_background
-
+###################################################################################################################################
 class Car:
     def __init__(self, x, y, direction, width_percent, height_percent):
         self.x = x
         self.y = y
-        self.direction = direction
+        self.inital_direction = direction
         self.image = pygame.image.load(f"images/car_{direction}side.png")
         original_width , original_height = self.image.get_size()
         scaled_width = int(original_width * width_percent)
@@ -151,43 +192,67 @@ class Car:
         self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
 
     def move(self):
-        if self.direction == "east":
+        if self.inital_direction == "east":
             self.x += 2
-        elif self.direction == "south":
+        elif self.inital_direction == "south":
             self.y += 2
-        elif self.direction == "west":
+        elif self.inital_direction == "west":
             self.x -= 2
-        elif self.direction == "north":
+        elif self.inital_direction == "north":
             self.y -= 2
 
     def render(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
-def vehicle_vanishing(vehicle,x,y, screen_width, screen_height):
-    width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
-    vanishing_points = [
-        (int(389 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(809 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
-        (int(1570 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(1990 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
-        (int(430 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(851 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
-        (int(1608 * width_adjustment_percent), int(4 * height_adjustment_percent)) , (int(2032 * width_adjustment_percent), int(4 * height_adjustment_percent)) ,
-        (int(309 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(730 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
-        (int(1490 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1910 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
-        (int(350 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(770 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
-        (int(1530 * width_adjustment_percent), int(1600 * height_adjustment_percent)) , (int(1953 * width_adjustment_percent), int(1600 * height_adjustment_percent)) ,
-        (int(1127 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
-        (int(2317 * width_adjustment_percent), int(552 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1092 * height_adjustment_percent)) ,
-        (int(1127 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(1127 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
-        (int(2317 * width_adjustment_percent), int(591 * height_adjustment_percent)) , (int(2317 * width_adjustment_percent), int(1131 * height_adjustment_percent)) ,
-        (int(4 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
-        (int(1191 * width_adjustment_percent), int(472 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1011 * height_adjustment_percent)) ,
-        (int(4 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(4 * width_adjustment_percent), int(1050 * height_adjustment_percent)) ,
-        (int(1191 * width_adjustment_percent), int(510 * height_adjustment_percent)) , (int(1191 * width_adjustment_percent), int(1050 * height_adjustment_percent))
-    ]
+class Truck:
+    def __init__(self, x, y, direction, width_percent, height_percent):
+        self.x = x
+        self.y = y
+        self.inital_direction = direction
+        self.image = pygame.image.load(f"images/truck_{direction}side.png")
+        original_width , original_height = self.image.get_size()
+        scaled_width = int(original_width * width_percent)
+        scaled_height = int(original_height * height_percent)
+        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
 
-    for vx , vy in vanishing_points:
-        if abs(x-vx) <=1 and abs (y - vy) <= 1:
-            return True
-    return False
+    def move(self):
+        if self.inital_direction == "east":
+            self.x += 1
+        elif self.inital_direction == "south":
+            self.y += 1
+        elif self.inital_direction == "west":
+            self.x -= 1
+        elif self.inital_direction == "north":
+            self.y -= 1
+
+    def render(self, screen):
+        screen.blit(self.image, (self.x, self.y))
+
+class Motorcycle:
+    def __init__(self, x, y, direction, width_percent, height_percent):
+        self.x = x
+        self.y = y
+        self.inital_direction = direction
+        self.image = pygame.image.load(f"images/motorcycle_{direction}side.png")
+        original_width , original_height = self.image.get_size()
+        scaled_width = int(original_width * width_percent)
+        scaled_height = int(original_height * height_percent)
+        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
+
+    def move(self):
+        if self.inital_direction == "east":
+            self.x += 1.5
+        elif self.inital_direction == "south":
+            self.y += 1.5
+        elif self.inital_direction == "west":
+            self.x -= 1.5
+        elif self.inital_direction == "north":
+            self.y -= 1.5
+
+    def render(self, screen):
+        screen.blit(self.image, (self.x, self.y))
+##################################################################################################################################
+
 def main():
     screen = initialize_pygame()
     images = load_images()
@@ -199,30 +264,41 @@ def main():
 
     #cars = generate_cars(screen_width, screen_height)
 
-    cars = []
-    car_thread = Thread(target=generate_cars, args=(cars, screen_width, screen_height))
+    vehicles = []
+    car_thread = Thread(target=generate_vehicles, args=(vehicles, screen_width, screen_height))
     car_thread.daemon = True
     car_thread.start()
 
     running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+    try:
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
-        screen.blit(background, (0, 0))
+            screen.blit(background, (0, 0))
+            
+            for vehicle in vehicles[:]:
+                if vehicle_vanishing(vehicle, vehicle.x, vehicle.y, screen_width, screen_height):
+                    #gets time in simulation
+                    end_time = time.time()
+                    time_in_simulation = end_time - vehicle_timers.pop(vehicle, end_time)
+                    if vehicle.x > screen_width / 2:
+                        file_name = "ml_result_metrics.txt"
+                    else:
+                        file_name = "static_result_metrics.txt"
+                    save_time_to_file(file_name, time_in_simulation)
+                    #Remove Vehicle
+                    vehicles.remove(vehicle)
 
-        for car in cars[:]:
-            if vehicle_vanishing(car, car.x, car.y, screen_width, screen_height):
-                cars.remove(car)
-            else:
-                car.move()
-                car.render(screen)
-
-        pygame.display.flip()
-        time.sleep(0.02)
-
-    pygame.quit()
+                else:
+                    vehicle.move()
+                    vehicle.render(screen)
+            pygame.display.flip()
+            time.sleep(0.02)
+    finally:
+        vehicle_timers.clear()
+        pygame.quit()
 
 
 
