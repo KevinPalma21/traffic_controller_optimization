@@ -64,50 +64,6 @@ def is_node_occupied(node_name, all_vehicles, this_vehicle):# This function chec
 
 class BaseVehicle:
 
-<<<<<<< Updated upstream
-    # Adjusted car positions after scaling
-    car_positions = {
-        "east": [
-            [(int(4 * width_adjustment_percent), int(552 * height_adjustment_percent)), 
-             (int(1191 * width_adjustment_percent), int(552 * height_adjustment_percent))],
-            [(int(4 * width_adjustment_percent), int(591 * height_adjustment_percent)), 
-             (int(1191 * width_adjustment_percent), int(591 * height_adjustment_percent))],
-            [(int(4 * width_adjustment_percent), int(1092 * height_adjustment_percent)), 
-             (int(1191 * width_adjustment_percent), int(1092 * height_adjustment_percent))],
-            [(int(4 * width_adjustment_percent), int(1131 * height_adjustment_percent)), 
-             (int(1191 * width_adjustment_percent), int(1131 * height_adjustment_percent))]
-        ],
-        "south": [
-            [(int(309 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
-             (int(1490 * width_adjustment_percent), int(4 * height_adjustment_percent))],
-            [(int(350 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
-             (int(1530 * width_adjustment_percent), int(4 * height_adjustment_percent))],
-            [(int(730 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
-             (int(1910 * width_adjustment_percent), int(4 * height_adjustment_percent))],
-            [(int(770 * width_adjustment_percent), int(4 * height_adjustment_percent)), 
-             (int(1953 * width_adjustment_percent), int(4 * height_adjustment_percent))]
-        ],
-        "west": [
-            [(int(1127 * width_adjustment_percent), int(472 * height_adjustment_percent)), 
-             (int(2317 * width_adjustment_percent), int(472 * height_adjustment_percent))],
-            [(int(1127 * width_adjustment_percent), int(510 * height_adjustment_percent)), 
-             (int(2317 * width_adjustment_percent), int(510 * height_adjustment_percent))],
-            [(int(1127 * width_adjustment_percent), int(1011 * height_adjustment_percent)), 
-             (int(2317 * width_adjustment_percent), int(1011 * height_adjustment_percent))],
-            [(int(1127 * width_adjustment_percent), int(1050 * height_adjustment_percent)), 
-             (int(2317 * width_adjustment_percent), int(1050 * height_adjustment_percent))]
-        ],
-        "north": [
-            [(int(389 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
-             (int(1570 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
-            [(int(430 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
-             (int(1608 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
-            [(int(809 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
-             (int(1990 * width_adjustment_percent), int(1600 * height_adjustment_percent))],
-            [(int(851 * width_adjustment_percent), int(1600 * height_adjustment_percent)), 
-             (int(2032 * width_adjustment_percent), int(1600 * height_adjustment_percent))]
-        ]
-=======
     def __init__(self, graph, start_node, side, speed=2):
         self.graph = graph
         self.current_node = start_node
@@ -274,7 +230,6 @@ def main():
         "northside": pygame.image.load("images/motorcycle_northside.png").convert_alpha(),
         "eastside":  pygame.image.load("images/motorcycle_eastside.png").convert_alpha(),
         "westside":  pygame.image.load("images/motorcycle_westside.png").convert_alpha()
->>>>>>> Stashed changes
     }
 
     clock = pygame.time.Clock()
@@ -282,143 +237,6 @@ def main():
     vehicles_ml = []
     vehicles_lock = threading.Lock()
 
-<<<<<<< Updated upstream
-        vehicle_type = random.choice([Car, Truck, Motorcycle])
-
-        static_vehicle = (vehicle_type(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-        ml_vehicle = (vehicle_type(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
-
-        vehicles.append(static_vehicle)
-        vehicles.append(ml_vehicle)
-
-        #start timers
-        vehicle_timers[static_vehicle] = time.time()
-        vehicle_timers[ml_vehicle] = time.time()
-        time.sleep(1)
-
-
-
-    # cars = []
-    # for _ in range(100):  # Run for 100 seconds
-    #     direction = random.choice(list(car_positions.keys()))
-    #     static, ml = random.choice(car_positions[direction])
-
-    #     cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-    #     cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
-
-    #     time.sleep(1)
-
-
-    # direction = random.choice(list(car_positions.keys()))
-    # static , ml = random.choice(car_positions[direction])
-    # cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-    # cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
-    # time.sleep(0.5)
-
-    #return cars
-
-    # for direction, points in car_positions.items():
-    #     for static, ml in points:
-    #         cars.append(Car(static[0], static[1], direction, width_adjustment_percent, height_adjustment_percent))
-    #         cars.append(Car(ml[0], ml[1], direction, width_adjustment_percent, height_adjustment_percent))
-
-
-
-
-def process_background(background, screen_size):
-    rotated_background = pygame.transform.rotate(background, 90)
-    scaled_background = pygame.transform.smoothscale(rotated_background, screen_size)
-    return scaled_background
-###################################################################################################################################
-class Car:
-    def __init__(self, x, y, direction, width_percent, height_percent):
-        self.x = x
-        self.y = y
-        self.inital_direction = direction
-        self.image = pygame.image.load(f"images/car_{direction}side.png")
-        original_width , original_height = self.image.get_size()
-        scaled_width = int(original_width * width_percent)
-        scaled_height = int(original_height * height_percent)
-        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
-
-    def move(self):
-        if self.inital_direction == "east":
-            self.x += 2
-        elif self.inital_direction == "south":
-            self.y += 2
-        elif self.inital_direction == "west":
-            self.x -= 2
-        elif self.inital_direction == "north":
-            self.y -= 2
-
-    def render(self, screen):
-        screen.blit(self.image, (self.x, self.y))
-
-class Truck:
-    def __init__(self, x, y, direction, width_percent, height_percent):
-        self.x = x
-        self.y = y
-        self.inital_direction = direction
-        self.image = pygame.image.load(f"images/truck_{direction}side.png")
-        original_width , original_height = self.image.get_size()
-        scaled_width = int(original_width * width_percent)
-        scaled_height = int(original_height * height_percent)
-        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
-
-    def move(self):
-        if self.inital_direction == "east":
-            self.x += 1
-        elif self.inital_direction == "south":
-            self.y += 1
-        elif self.inital_direction == "west":
-            self.x -= 1
-        elif self.inital_direction == "north":
-            self.y -= 1
-
-    def render(self, screen):
-        screen.blit(self.image, (self.x, self.y))
-
-class Motorcycle:
-    def __init__(self, x, y, direction, width_percent, height_percent):
-        self.x = x
-        self.y = y
-        self.inital_direction = direction
-        self.image = pygame.image.load(f"images/motorcycle_{direction}side.png")
-        original_width , original_height = self.image.get_size()
-        scaled_width = int(original_width * width_percent)
-        scaled_height = int(original_height * height_percent)
-        self.image = pygame.transform.smoothscale(self.image, (scaled_width, scaled_height))
-
-    def move(self):
-        if self.inital_direction == "east":
-            self.x += 1.5
-        elif self.inital_direction == "south":
-            self.y += 1.5
-        elif self.inital_direction == "west":
-            self.x -= 1.5
-        elif self.inital_direction == "north":
-            self.y -= 1.5
-
-    def render(self, screen):
-        screen.blit(self.image, (self.x, self.y))
-##################################################################################################################################
-
-def main():
-    screen = initialize_pygame()
-    images = load_images()
-
-    screen_width, screen_height = screen.get_size()
-    background = process_background(images["background"], (screen_width, screen_height))
-
-    width_adjustment_percent, height_adjustment_percent = calculate_scaling_percentages(screen_width, screen_height)
-
-    #cars = generate_cars(screen_width, screen_height)
-
-    vehicles = []
-    car_thread = Thread(target=generate_vehicles, args=(vehicles, screen_width, screen_height))
-    car_thread.daemon = True
-    car_thread.start()
-=======
     # Start spawner thread
     spawner_thread = threading.Thread(
         target=spawn_vehicles_thread,
@@ -431,7 +249,6 @@ def main():
         daemon=True
     )
     spawner_thread.start()
->>>>>>> Stashed changes
 
     running = True
     while running:
@@ -441,20 +258,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-<<<<<<< Updated upstream
-                else:
-                    vehicle.move()
-                    vehicle.render(screen)
-            pygame.display.flip()
-            time.sleep(0.02)
-    finally:
-        vehicle_timers.clear()
-        pygame.quit()
-=======
         with vehicles_lock:
             # Build a combined list for occupancy checks
             all_vehicles = vehicles_static + vehicles_ml
->>>>>>> Stashed changes
 
             # Update static side
             for v in vehicles_static[:]:
