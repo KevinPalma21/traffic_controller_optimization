@@ -7,14 +7,14 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 6,Y.1.6,Intermediate ,southside,1054,167,Y.1.7,
 7,Y.1.7,Intermediate ,southside,1054,197,Y.1.8,
 8,Y.1.8,Intermediate ,southside,1054,227,Y.1.9,
-9,Y.1.9,Traffic_Controller,southside,1054,257,C.1.1,
+9,Y.1.9,Traffic_Controller,southside,1054,257,C.1.1,C.1.17
 10,Y.1.10,Intermediate ,southside,1054,411,Y.1.11,
 11,Y.1.11,Intermediate ,southside,1054,441,Y.1.12,
 12,Y.1.12,Intermediate ,southside,1054,471,Y.1.13,
 13,Y.1.13,Intermediate ,southside,1054,501,Y.1.14,
 14,Y.1.14,Intermediate ,southside,1054,531,Y.1.15,
 15,Y.1.15,Intermediate ,southside,1054,561,Y.1.16,
-16,Y.1.16,Traffic_Contoller,southside,1054,591,C.3.1,
+16,Y.1.16,Traffic_Contoller,southside,1054,591,C.3.1,C.3.17
 17,Y.1.17,Intermediate ,southside,1054,747,Y.1.18,
 18,Y.1.18,Intermediate ,southside,1054,777,Y.1.19,
 19,Y.1.19,Intermediate ,southside,1054,807,Y.1.20,
@@ -86,14 +86,14 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 85,Y.4.7,Intermediate ,northside,1137,197,Y.4.6,
 86,Y.4.8,Intermediate ,northside,1137,227,Y.4.7,
 87,Y.4.9,Intermediate ,northside,1137,257,Y.4.8,
-88,Y.4.10,Traffic_Controller,northside,1137,411,C.1.16,
+88,Y.4.10,Traffic_Controller,northside,1137,411,C.1.16,C.1.20
 89,Y.4.11,Intermediate ,northside,1137,441,Y.4.10,
 90,Y.4.12,Intermediate ,northside,1137,471,Y.4.11,
 91,Y.4.13,Intermediate ,northside,1137,501,Y.4.12,
 92,Y.4.14,Intermediate ,northside,1137,531,Y.4.13,
 93,Y.4.15,Intermediate ,northside,1137,561,Y.4.14,
 94,Y.4.16,Intermediate ,northside,1137,591,Y.4.15,
-95,Y.4.17,Traffic_Controller,northside,1137,747,C.3.16,
+95,Y.4.17,Traffic_Controller,northside,1137,747,C.3.16,C.3.20
 96,Y.4.18,Intermediate ,northside,1137,777,Y.4.17,
 97,Y.4.19,Intermediate ,northside,1137,807,Y.4.18,
 98,Y.4.20,Intermediate ,northside,1137,837,Y.4.19,
@@ -111,14 +111,14 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 110,Y.5.6,Intermediate ,southside,1348,167,Y.5.7,
 111,Y.5.7,Intermediate ,southside,1348,197,Y.5.8,
 112,Y.5.8,Intermediate ,southside,1348,227,Y.5.9,
-113,Y.5.9,Traffic_Controller,southside,1348,257,C.2.1,
+113,Y.5.9,Traffic_Controller,southside,1348,257,C.2.1,C.2.17
 114,Y.5.10,Intermediate ,southside,1348,411,Y.5.11,
 115,Y.5.11,Intermediate ,southside,1348,441,Y.5.12,
 116,Y.5.12,Intermediate ,southside,1348,471,Y.5.13,
 117,Y.5.13,Intermediate ,southside,1348,501,Y.5.14,
 118,Y.5.14,Intermediate ,southside,1348,531,Y.5.15,
 119,Y.5.15,Intermediate ,southside,1348,561,Y.5.16,
-120,Y.5.16,Traffic_Contoller,southside,1348,591,C.4.1,
+120,Y.5.16,Traffic_Contoller,southside,1348,591,C.4.1,C.4.17
 121,Y.5.17,Intermediate ,southside,1348,747,Y.5.18,
 122,Y.5.18,Intermediate ,southside,1348,777,Y.5.19,
 123,Y.5.19,Intermediate ,southside,1348,807,Y.5.20,
@@ -190,14 +190,14 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 189,Y.8.7,Intermediate ,northside,1432,197,Y.8.6,
 190,Y.8.8,Intermediate ,northside,1432,227,Y.8.7,
 191,Y.8.9,Intermediate ,northside,1432,257,Y.8.8,
-192,Y.8.10,Traffic_Controller,northside,1432,411,C.2.16,
+192,Y.8.10,Traffic_Controller,northside,1432,411,C.2.16,C.2.20
 193,Y.8.11,Intermediate ,northside,1432,441,Y.8.10,
 194,Y.8.12,Intermediate ,northside,1432,471,Y.8.11,
 195,Y.8.13,Intermediate ,northside,1432,501,Y.8.12,
 196,Y.8.14,Intermediate ,northside,1432,531,Y.8.13,
 197,Y.8.15,Intermediate ,northside,1432,561,Y.8.14,
 198,Y.8.16,Intermediate ,northside,1432,591,Y.8.15,
-199,Y.8.17,Traffic_Controller,northside,1432,747,C.4.16,
+199,Y.8.17,Traffic_Controller,northside,1432,747,C.4.16,C.4.20
 200,Y.8.18,Intermediate ,northside,1432,777,Y.8.17,
 201,Y.8.19,Intermediate ,northside,1432,807,Y.8.18,
 202,Y.8.20,Intermediate ,northside,1432,837,Y.8.19,
@@ -214,12 +214,12 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 213,X.1.5,Intermediate ,westside,966,298,X.1.4,
 214,X.1.6,Intermediate ,westside,996,298,X.1.5,
 215,X.1.7,Intermediate ,westside,1026,298,X.1.6,
-216,X.1.8,Traffic_Controller,westside,1181,298,C.1.4,
+216,X.1.8,Traffic_Controller,westside,1181,298,C.1.4,C.1.18
 217,X.1.9,Intermediate ,westside,1211,298,X.1.8,
 218,X.1.10,Intermediate ,westside,1241,298,X.1.9,
 219,X.1.11,Intermediate ,westside,1271,298,X.1.10,
 220,X.1.12,Intermediate ,westside,1301,298,X.1.11,
-221,X.1.13,Traffic_Controller,westside,1472,298,C.2.4,
+221,X.1.13,Traffic_Controller,westside,1472,298,C.2.4,C.2.18
 222,X.1.14,Intermediate ,westside,1502,298,X.1.13,
 223,X.1.15,Intermediate ,westside,1532,298,X.1.14,
 224,X.1.16,Intermediate ,westside,1562,298,X.1.15,
@@ -270,12 +270,12 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 269,X.4.4,Intermediate ,eastside,936,370,X.4.5,
 270,X.4.5,Intermediate ,eastside,966,370,X.4.6,
 271,X.4.6,Intermediate ,eastside,996,370,X.4.7,
-272,X.4.7,Traffic_Controller,eastside,1026,370,C.1.13,
+272,X.4.7,Traffic_Controller,eastside,1026,370,C.1.13,C.1.19
 273,X.4.8,Intermediate ,eastside,1181,370,X.4.9,
 274,X.4.9,Intermediate ,eastside,1211,370,X.4.10,
 275,X.4.10,Intermediate ,eastside,1241,370,X.4.11,
 276,X.4.11,Intermediate ,eastside,1271,370,X.4.12,
-277,X.4.12,Traffic_Controller,eastside,1301,370,C.2.13,
+277,X.4.12,Traffic_Controller,eastside,1301,370,C.2.13,C.2.19
 278,X.4.13,Intermediate ,eastside,1472,370,X.4.14,
 279,X.4.14,Intermediate ,eastside,1502,370,X.4.15,
 280,X.4.15,Intermediate ,eastside,1532,370,X.4.16,
@@ -290,12 +290,12 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 289,X.5.5,Intermediate ,westside,966,632,X.5.4,
 290,X.5.6,Intermediate ,westside,996,632,X.5.5,
 291,X.5.7,Intermediate ,westside,1026,632,X.5.6,
-292,X.5.8,Traffic_Controller,westside,1181,632,C.3.4,
+292,X.5.8,Traffic_Controller,westside,1181,632,C.3.4,C.3.18
 293,X.5.9,Intermediate ,westside,1211,632,X.5.8,
 294,X.5.10,Intermediate ,westside,1241,632,X.5.9,
 295,X.5.11,Intermediate ,westside,1271,632,X.5.10,
 296,X.5.12,Intermediate ,westside,1301,632,X.5.11,
-297,X.5.13,Traffic_Controller,westside,1472,632,C.4.4,
+297,X.5.13,Traffic_Controller,westside,1472,632,C.4.4,C.4.18
 298,X.5.14,Intermediate ,westside,1502,632,X.5.13,
 299,X.5.15,Intermediate ,westside,1532,632,X.5.14,
 300,X.5.16,Intermediate ,westside,1562,632,X.5.15,
@@ -346,12 +346,12 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 345,X.8.4,Intermediate ,eastside,936,707,X.8.5,
 346,X.8.5,Intermediate ,eastside,966,707,X.8.6,
 347,X.8.6,Intermediate ,eastside,996,707,X.8.7,
-348,X.8.7,Traffic_Controller,eastside,1026,707,C.3.13,
+348,X.8.7,Traffic_Controller,eastside,1026,707,C.3.13,C.3.19
 349,X.8.8,Intermediate ,eastside,1181,707,X.8.9,
 350,X.8.9,Intermediate ,eastside,1211,707,X.8.10,
 351,X.8.10,Intermediate ,eastside,1241,707,X.8.11,
 352,X.8.11,Intermediate ,eastside,1271,707,X.8.12,
-353,X.8.12,Traffic_Controller,eastside,1301,707,C.4.13,
+353,X.8.12,Traffic_Controller,eastside,1301,707,C.4.13,C.4.19
 354,X.8.13,Intermediate ,eastside,1472,707,X.8.14,
 355,X.8.14,Intermediate ,eastside,1502,707,X.8.15,
 356,X.8.15,Intermediate ,eastside,1532,707,X.8.16,
@@ -359,10 +359,10 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 358,X.8.17,Intermediate ,eastside,1592,707,X.8.18,
 359,X.8.18,Intermediate ,eastside,1622,707,X.8.19,
 360,X.8.19,Exit,eastside,1652,707,,
-361,C.1.1,Middle,southside,1054,298,X.1.7,C.1.5
+361,C.1.1,Middle,southside,1054,298,C.1.5,
 362,C.1.2,Middle,westside,1081,298,X.1.7,
 363,C.1.3,Middle,westside,1111,298,C.1.2,
-364,C.1.4,Middle,westside,1137,298,Y.4.9,C.1.3
+364,C.1.4,Middle,westside,1137,298,C.1.3,
 365,C.1.5,Middle,southside,1054,322,C.1.9,
 366,C.1.6,Middle,southside,1081,322,C.1.9,Y.2.10
 367,C.1.7,Middle,westside,1111,322,C.1.2,X.2.7
@@ -371,14 +371,18 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 370,C.1.10,Middle,eastside,1081,347,X.3.8,C.1.15
 371,C.1.11,Middle,northside,1111,347,C.1.8,Y.3.9
 372,C.1.12,Middle,northside,1137,347,C.1.8,
-373,C.1.13,Middle,eastside,1054,370,Y.1.10,C.1.14
+373,C.1.13,Middle,eastside,1054,370,C.1.14,
 374,C.1.14,Middle,eastside,1081,370,C.1.15,
 375,C.1.15,Middle,eastside,1111,370,X.4.8,
-376,C.1.16,Middle,northside,1137,370,C.1.12,X.4.8
-377,C.2.1,Middle,southside,1348,298,X.1.12,C.2.5
+425,C.1.17,Middle,westside,1054,298,X.1.7,
+426,C.1.18,Middle,northside,1137,298,Y.4.9,
+427,C.1.19,Middle,southside,1054,370,Y.1.10,
+428,C.1.20,Middle,eastside,1137,370,X.4.8,
+376,C.1.16,Middle,northside,1137,370,C.1.12,
+377,C.2.1,Middle,southside,1348,298,C.2.5,
 378,C.2.2,Middle,westside,1375,298,X.1.12,
 379,C.2.3,Middle,westside,1405,298,C.2.2,
-380,C.2.4,Middle,westside,1432,298,Y.8.9,C.2.3
+380,C.2.4,Middle,westside,1432,298,C.2.3,
 381,C.2.5,Middle,southside,1348,322,C.2.9,
 382,C.2.6,Middle,southside,1375,322,C.2.9,Y.6.10
 383,C.2.7,Middle,westside,1405,322,C.2.2,X.2.12
@@ -387,14 +391,18 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 386,C.2.10,Middle,eastside,1375,347,X.3.13,C.2.15
 387,C.2.11,Middle,northside,1405,347,C.2.8,Y.7.9
 388,C.2.12,Middle,northside,1432,347,C.2.8,
-389,C.2.13,Middle,eastside,1348,370,Y.5.10,C.2.14
+389,C.2.13,Middle,eastside,1348,370,C.2.14,
 390,C.2.14,Middle,eastside,1375,370,C.2.15,
 391,C.2.15,Middle,eastside,1405,370,X.4.13,
-392,C.2.16,Middle,northside,1432,370,C.2.12,X.4.13
-393,C.3.1,Middle,southside,1054,632,X.5.7,C.3.5
+429,C.2.17,Middle,westside,1348,298,X.1.12,
+430,C.2.18,Middle,northside,1432,298,Y.8.9,
+431,C.2.19,Middle,southside,1348,370,Y.5.10,
+432,C.2.20,Middle,eastside,1432,370,X.4.13,
+392,C.2.16,Middle,northside,1432,370,C.2.12,
+393,C.3.1,Middle,southside,1054,632,C.3.5,
 394,C.3.2,Middle,westside,1081,632,X.5.7,
 395,C.3.3,Middle,westside,1111,632,C.3.2,
-396,C.3.4,Middle,westside,1137,632,Y.4.16,C.3.3
+396,C.3.4,Middle,westside,1137,632,C.3.3,
 397,C.3.5,Middle,southside,1054,657,C.3.9,
 398,C.3.6,Middle,southside,1081,657,C.3.9,Y.2.17
 399,C.3.7,Middle,westside,1111,657,C.3.2,X.6.7
@@ -403,14 +411,18 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 402,C.3.10,Middle,eastside,1081,682,X.7.8,C.3.15
 403,C.3.11,Middle,northside,1111,682,C.3.8,Y.3.16
 404,C.3.12,Middle,northside,1137,682,C.3.8,
-405,C.3.13,Middle,eastside,1054,707,Y.1.17,C.3.14
+405,C.3.13,Middle,eastside,1054,707,C.3.14,
 406,C.3.14,Middle,eastside,1081,707,C.3.15,
 407,C.3.15,Middle,eastside,1111,707,X.8.8,
-408,C.3.16,Middle,northside,1137,707,C.3.12,X.8.8
-409,C.4.1,Middle,southside,1348,632,X.5.12,C.4.5
+433,C.3.17,Middle,westside,1054,632,X.5.7,
+434,C.3.18,Middle,northside,1137,632,Y.4.16,
+435,C.3.19,Middle,southside,1054,707,Y.1.17,
+436,C.3.20,Middle,eastside,1137,707,X.8.8,
+408,C.3.16,Middle,northside,1137,707,C.3.12,
+409,C.4.1,Middle,southside,1348,632,C.4.5,
 410,C.4.2,Middle,westside,1375,632,X.5.12,
 411,C.4.3,Middle,westside,1405,632,C.4.2,
-412,C.4.4,Middle,westside,1432,632,Y.8.16,C.4.3
+412,C.4.4,Middle,westside,1432,632,C.4.3,
 413,C.4.5,Middle,southside,1348,657,C.4.9,
 414,C.4.6,Middle,southside,1375,657,C.4.9,Y.6.17
 415,C.4.7,Middle,westside,1405,657,C.4.2,X.6.12
@@ -419,7 +431,11 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 418,C.4.10,Middle,eastside,1375,682,X.7.13,C.4.15
 419,C.4.11,Middle,northside,1405,682,C.4.8,Y.7.16
 420,C.4.12,Middle,northside,1432,682,C.4.8,
-421,C.4.13,Middle,eastside,1348,707,Y.5.17,C.4.14
+421,C.4.13,Middle,eastside,1348,707,C.4.14,
 422,C.4.14,Middle,eastside,1375,707,C.4.15,
 423,C.4.15,Middle,eastside,1405,707,X.8.13,
-424,C.4.16,Middle,northside,1432,707,C.4.12,X.8.13
+437,C.4.17,Middle,westside,1348,632,X.5.12,
+438,C.4.18,Middle,northside,1432,632,Y.8.16,
+439,C.4.19,Middle,southside,1348,707,Y.5.17,
+440,C.4.20,Middle,eastside,1432,707,X.8.13,
+424,C.4.16,Middle,northside,1432,707,C.4.12,
