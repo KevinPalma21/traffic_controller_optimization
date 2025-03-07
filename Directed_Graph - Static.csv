@@ -14,7 +14,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 13,V.1.13,Intermediate ,southside,224,501,V.1.14,
 14,V.1.14,Intermediate ,southside,224,531,V.1.15,
 15,V.1.15,Intermediate ,southside,224,561,V.1.16,
-16,V.1.16,Traffic_Contoller,southside,224,591,M.3.1,M.3.17
+16,V.1.16,Traffic_Controller,southside,224,591,M.3.1,M.3.17
 17,V.1.17,Intermediate ,southside,224,747,V.1.18,
 18,V.1.18,Intermediate ,southside,224,777,V.1.19,
 19,V.1.19,Intermediate ,southside,224,807,V.1.20,
@@ -40,7 +40,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 39,V.2.13,Intermediate ,southside,251,501,V.2.14,
 40,V.2.14,Intermediate ,southside,251,531,V.2.15,
 41,V.2.15,Intermediate ,southside,251,561,V.2.16,
-42,V.2.16,Traffic_Contoller,southside,251,591,M.3.10,
+42,V.2.16,Traffic_Controller,southside,251,591,M.3.10,
 43,V.2.17,Intermediate ,southside,251,747,V.2.18,
 44,V.2.18,Intermediate ,southside,251,777,V.2.19,
 45,V.2.19,Intermediate ,southside,251,807,V.2.20,
@@ -118,7 +118,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 117,V.5.13,Intermediate ,southside,518,501,V.5.14,
 118,V.5.14,Intermediate ,southside,518,531,V.5.15,
 119,V.5.15,Intermediate ,southside,518,561,V.5.16,
-120,V.5.16,Traffic_Contoller,southside,518,591,M.4.1,M.4.17
+120,V.5.16,Traffic_Controller,southside,518,591,M.4.1,M.4.17
 121,V.5.17,Intermediate ,southside,518,747,V.5.18,
 122,V.5.18,Intermediate ,southside,518,777,V.5.19,
 123,V.5.19,Intermediate ,southside,518,807,V.5.20,
@@ -144,7 +144,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 143,V.6.13,Intermediate ,southside,545,501,V.6.14,
 144,V.6.14,Intermediate ,southside,545,531,V.6.15,
 145,V.6.15,Intermediate ,southside,545,561,V.6.16,
-146,V.6.16,Traffic_Contoller,southside,545,591,M.4.10,
+146,V.6.16,Traffic_Controller,southside,545,591,M.4.10,
 147,V.6.17,Intermediate ,southside,545,747,V.6.18,
 148,V.6.18,Intermediate ,southside,545,777,V.6.19,
 149,V.6.19,Intermediate ,southside,545,807,V.6.20,

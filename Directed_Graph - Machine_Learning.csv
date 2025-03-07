@@ -14,7 +14,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 13,Y.1.13,Intermediate ,southside,1054,501,Y.1.14,
 14,Y.1.14,Intermediate ,southside,1054,531,Y.1.15,
 15,Y.1.15,Intermediate ,southside,1054,561,Y.1.16,
-16,Y.1.16,Traffic_Contoller,southside,1054,591,C.3.1,C.3.17
+16,Y.1.16,Traffic_Controller,southside,1054,591,C.3.1,C.3.17
 17,Y.1.17,Intermediate ,southside,1054,747,Y.1.18,
 18,Y.1.18,Intermediate ,southside,1054,777,Y.1.19,
 19,Y.1.19,Intermediate ,southside,1054,807,Y.1.20,
@@ -40,7 +40,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 39,Y.2.13,Intermediate ,southside,1081,501,Y.2.14,
 40,Y.2.14,Intermediate ,southside,1081,531,Y.2.15,
 41,Y.2.15,Intermediate ,southside,1081,561,Y.2.16,
-42,Y.2.16,Traffic_Contoller,southside,1081,591,C.3.10,
+42,Y.2.16,Traffic_Controller,southside,1081,591,C.3.10,
 43,Y.2.17,Intermediate ,southside,1081,747,Y.2.18,
 44,Y.2.18,Intermediate ,southside,1081,777,Y.2.19,
 45,Y.2.19,Intermediate ,southside,1081,807,Y.2.20,
@@ -118,7 +118,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 117,Y.5.13,Intermediate ,southside,1348,501,Y.5.14,
 118,Y.5.14,Intermediate ,southside,1348,531,Y.5.15,
 119,Y.5.15,Intermediate ,southside,1348,561,Y.5.16,
-120,Y.5.16,Traffic_Contoller,southside,1348,591,C.4.1,C.4.17
+120,Y.5.16,Traffic_Controller,southside,1348,591,C.4.1,C.4.17
 121,Y.5.17,Intermediate ,southside,1348,747,Y.5.18,
 122,Y.5.18,Intermediate ,southside,1348,777,Y.5.19,
 123,Y.5.19,Intermediate ,southside,1348,807,Y.5.20,
@@ -144,7 +144,7 @@ Node Number,Node Name,Node Type,vehicle direction,X coordinate,Y coordinate,Neig
 143,Y.6.13,Intermediate ,southside,1375,501,Y.6.14,
 144,Y.6.14,Intermediate ,southside,1375,531,Y.6.15,
 145,Y.6.15,Intermediate ,southside,1375,561,Y.6.16,
-146,Y.6.16,Traffic_Contoller,southside,1375,591,C.4.10,
+146,Y.6.16,Traffic_Controller,southside,1375,591,C.4.10,
 147,Y.6.17,Intermediate ,southside,1375,747,Y.6.18,
 148,Y.6.18,Intermediate ,southside,1375,777,Y.6.19,
 149,Y.6.19,Intermediate ,southside,1375,807,Y.6.20,

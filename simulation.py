@@ -44,10 +44,12 @@ def load_graph_from_csv(csv_filename):#This function get the directed graph from
                     entry_nodes.append(node_name)
                 elif node_type == "exit":
                     exit_nodes.append(node_name)
+
+    
     except Exception as e:
         print(f"Error loading CSV {csv_filename}: {e}")
     
-    return graph, entry_nodes, exit_nodes
+    return graph, entry_nodes, exit_nodes,
 #########################################################################################################
 
 def select_random_entry(entry_nodes):#Randomly picks an entry node, will be called later to generate a vehicle at that node
@@ -62,9 +64,69 @@ def is_node_occupied(node_name, all_vehicles, this_vehicle):# This function chec
     return False
 ############################################################################################################
 
+class TrafficLight:
+    def __init__(self, node_name, x, y, orientation, images):
+        """
+        :param node_name: the identifier from your CSV (e.g., "V1.9")
+        :param x, y: coordinates for this node
+        :param orientation: either "horizontal" or "vertical"
+        :param images: a dict of images for that orientation with keys "red", "yellow", "green"
+        """
+        self.node_name = node_name
+        self.x = x
+        self.y = y
+        self.orientation = orientation  # "horizontal" or "vertical"
+        self.images = images
+        self.state = "red"  # initial state
+        self.cycle_period = 12.0  # total cycle time in seconds
+
+    def update(self):
+        # Use the current time mod cycle_period for a synchronized cycle.
+        t = time.time() % self.cycle_period
+        if self.orientation == "horizontal":
+            # Horizontal cycle: green (0-5 sec), yellow (5-7 sec), red (7-12 sec)
+            if t < 5:
+                self.state = "green"
+            elif t < 7:
+                self.state = "yellow"
+            else:
+                self.state = "red"
+        else:  # vertical
+            # Vertical cycle: red (0-7 sec), green (7-10 sec), yellow (10-12 sec)
+            if t < 7:
+                self.state = "red"
+            elif t < 10:
+                self.state = "green"
+            else:
+                self.state = "yellow"
+
+    def draw(self, screen):
+        # Draw the image centered at the node's (x, y)
+        img = self.images[self.state]
+        rect = img.get_rect(center=(self.x, self.y))
+        screen.blit(img, rect)
+
+def create_traffic_lights(graph, horizontal_images, vertical_images):
+    traffic_lights = []
+    for node_name, node_data in graph.items():
+        if node_data["node_type"].lower() == "traffic_controller":
+            direction = node_data["direction"]
+            # Determine orientation based on the direction.
+            # Assume "eastside" and "westside" are horizontal, others vertical.
+            if direction in ("eastside", "westside"):
+                orientation = "horizontal"
+                images = horizontal_images
+            else:
+                orientation = "vertical"
+                images = vertical_images
+            tl = TrafficLight(node_name, node_data["x"], node_data["y"], orientation, images)
+            traffic_lights.append(tl)
+    return traffic_lights
+
+
 class BaseVehicle:
 
-    def __init__(self, graph, start_node, side, speed=2):
+    def __init__(self, graph, start_node, side, speed=2, light_state=None):
         self.graph = graph
         self.current_node = start_node
         self.x = graph[start_node]["x"]
@@ -74,6 +136,7 @@ class BaseVehicle:
         self.target_node = None
         self.side = side
         self.spawn_time = time.time() #Starts timer when vehicle is generated, this is the metric which we will use to conclude weather or not traffic signals controlled by machine learning are better then what we have today
+        self.light_state = light_state  # dictionary of node_name -> TrafficLight object
 
     def choose_next_node(self):#Cannot use a shortest path traversal algo like Dijkstra or Greedy because if I randomly choose a entry and exit node, there might never be a path between these two becasue of the layout of the streets
         neighbors = self.graph[self.current_node]["neighbors"]
@@ -96,7 +159,17 @@ class BaseVehicle:
         if is_node_occupied(self.target_node, all_vehicles, self):
             current_speed = 0
         else:
-            current_speed = self.base_speed
+            current_speed = self.base_speed               
+        
+        # If next node is a traffic_controller node, check the light
+        if self.graph[self.target_node]["node_type"] == "traffic_controller":
+            #check the traffic light
+            # self.lights_dict may be None if not provided, so check that first
+            if self.light_state and self.target_node in self.light_state:
+                light_state = self.light_state[self.target_node].state
+                if light_state != "green":
+                    current_speed = 0
+
 
         #Normal movement logic with 'current_speed'
         target_x = self.graph[self.target_node]["x"]
@@ -128,8 +201,8 @@ class BaseVehicle:
         pass
 
 class Car(BaseVehicle):
-    def __init__(self, images, graph, start_node, side, speed=1.5): #Actual Speed of Car
-        super().__init__(graph, start_node, side, speed)
+    def __init__(self, images, graph, start_node, side, speed=1.5, light_state=None): #Actual Speed of Car
+        super().__init__(graph, start_node, side, speed, light_state)
         self.images = images
         self.set_image_by_direction(graph[start_node]["direction"])
 
@@ -138,8 +211,8 @@ class Car(BaseVehicle):
             self.image = self.images[direction]
 
 class Truck(BaseVehicle):
-    def __init__(self, images, graph, start_node, side, speed=1): #Actual Speed of Truck
-        super().__init__(graph, start_node, side, speed)
+    def __init__(self, images, graph, start_node, side, speed=1, light_state=None): #Actual Speed of Truck
+        super().__init__(graph, start_node, side, speed, light_state)
         self.images = images
         self.set_image_by_direction(graph[start_node]["direction"])
 
@@ -148,8 +221,8 @@ class Truck(BaseVehicle):
             self.image = self.images[direction]
 
 class Motorcycle(BaseVehicle):
-    def __init__(self, images, graph, start_node, side, speed=2): #Actual Speed of Motorcycle
-        super().__init__(graph, start_node, side, speed)
+    def __init__(self, images, graph, start_node, side, speed=1.75, light_state=None): #Actual Speed of Motorcycle
+        super().__init__(graph, start_node, side, speed, light_state)
         self.images = images
         self.set_image_by_direction(graph[start_node]["direction"])
 
@@ -163,7 +236,8 @@ def spawn_vehicles_thread(
     vehicles_static, vehicles_ml, lock,
     entry_static, entry_ml,
     graph_static, graph_ml,
-    cars_img, trucks_img, motos_img
+    cars_img, trucks_img, motos_img,
+    lights_state_static, lights_state_ml,
 ):
     global simulation_running
 
@@ -179,18 +253,18 @@ def spawn_vehicles_thread(
 
                 with lock:
                     if vehicle_type_s == "car":
-                        new_vehicle_s = Car(cars_img, graph_static, entry_s, side="static")
+                        new_vehicle_s = Car(cars_img, graph_static, entry_s, side="static", light_state=lights_state_static)
                     elif vehicle_type_s == "truck":
-                        new_vehicle_s = Truck(trucks_img, graph_static, entry_s, side="static")
+                        new_vehicle_s = Truck(trucks_img, graph_static, entry_s, side="static", light_state=lights_state_static)
                     else:
-                        new_vehicle_s = Motorcycle(motos_img, graph_static, entry_s, side="static")
+                        new_vehicle_s = Motorcycle(motos_img, graph_static, entry_s, side="static", light_state=lights_state_static)
 
                     if vehicle_type_m == "car":
-                        new_vehicle_m = Car(cars_img, graph_ml, entry_m, side="ml")
+                        new_vehicle_m = Car(cars_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
                     elif vehicle_type_m == "truck":
-                        new_vehicle_m = Truck(trucks_img, graph_ml, entry_m, side="ml")
+                        new_vehicle_m = Truck(trucks_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
                     else:
-                        new_vehicle_m = Motorcycle(motos_img, graph_ml, entry_m, side="ml")
+                        new_vehicle_m = Motorcycle(motos_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
 
                     vehicles_static.append(new_vehicle_s)
                     vehicles_ml.append(new_vehicle_m)
@@ -232,6 +306,26 @@ def main():
         "westside":  pygame.image.load("images/motorcycle_westside.png").convert_alpha()
     }
 
+    
+    # Load traffic light images for horizontal and vertical nodes.
+    horizontal_images = {
+        "red": pygame.image.load("images/traffic_light_right_red.png").convert_alpha(),
+        "yellow": pygame.image.load("images/traffic_light_right_yellow.png").convert_alpha(),
+        "green": pygame.image.load("images/traffic_light_right_green.png").convert_alpha()
+    }
+    vertical_images = {
+        "red": pygame.image.load("images/traffic_light_left_red.png").convert_alpha(),
+        "yellow": pygame.image.load("images/traffic_light_left_yellow.png").convert_alpha(),
+        "green": pygame.image.load("images/traffic_light_left_green.png").convert_alpha()
+    }
+
+    # Create traffic lights for each graph.
+    static_traffic_lights = create_traffic_lights(graph_static, horizontal_images, vertical_images)
+    ml_traffic_lights = create_traffic_lights(graph_ml, horizontal_images, vertical_images)
+
+    lights_state_static = {tl.node_name: tl for tl in static_traffic_lights}
+    lights_state_ml = {tl.node_name: tl for tl in ml_traffic_lights}
+
     clock = pygame.time.Clock()
     vehicles_static = []
     vehicles_ml = []
@@ -244,7 +338,9 @@ def main():
             vehicles_static, vehicles_ml, vehicles_lock,
             entry_static, entry_ml,
             graph_static, graph_ml,
-            car_images, truck_images, motorcycle_images
+            car_images, truck_images, motorcycle_images,
+            lights_state_static,
+            lights_state_ml,
         ),
         daemon=True
     )
@@ -252,7 +348,7 @@ def main():
 
     running = True
     while running:
-        dt = clock.tick(60)
+        dt = clock.tick(120)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -282,6 +378,15 @@ def main():
 
         # Render
         screen.blit(background_img, (0, 0))
+        
+        # Update and draw static side traffic lights.
+        for tl in static_traffic_lights:
+            tl.update()
+            tl.draw(screen)
+        for tl in ml_traffic_lights:
+            tl.update()
+            tl.draw(screen)
+
         with vehicles_lock:
             for v in vehicles_static:
                 v.draw(screen)
