@@ -230,13 +230,62 @@ class Motorcycle(BaseVehicle):
         if direction in self.images:
             self.image = self.images[direction]
 
+class Schoolbus(BaseVehicle):
+    def __init__(self, images, graph, start_node, side, speed=1, light_state=None): #Actual Speed of School bus
+        super().__init__(graph, start_node, side, speed, light_state)
+        self.images = images
+        self.set_image_by_direction(graph[start_node]["direction"])
+
+    def set_image_by_direction(self, direction):
+        if direction in self.images:
+            self.image = self.images[direction]
+
+class Policecar(BaseVehicle):
+    def __init__(self, images, graph, start_node, side, speed=1.5, light_state=None): #Actual Speed of Police car
+        super().__init__(graph, start_node, side, speed, light_state)
+        self.images = images
+        self.set_image_by_direction(graph[start_node]["direction"])
+
+    def set_image_by_direction(self, direction):
+        if direction in self.images:
+            self.image = self.images[direction]
+
+class Bulldozer(BaseVehicle):
+    def __init__(self, images, graph, start_node, side, speed=0.8, light_state=None): #Actual Speed of Police car
+        super().__init__(graph, start_node, side, speed, light_state)
+        self.images = images
+        self.set_image_by_direction(graph[start_node]["direction"])
+
+    def set_image_by_direction(self, direction):
+        if direction in self.images:
+            self.image = self.images[direction]
+
+class Ambulance(BaseVehicle):
+    def __init__(self, images, graph, start_node, side, speed=1, light_state=None): #Actual Speed of Police car
+        super().__init__(graph, start_node, side, speed, light_state)
+        self.images = images
+        self.set_image_by_direction(graph[start_node]["direction"])
+
+    def set_image_by_direction(self, direction):
+        if direction in self.images:
+            self.image = self.images[direction]
+
+class Semitruck(BaseVehicle):
+    def __init__(self, images, graph, start_node, side, speed=1, light_state=None): #Actual Speed of Police car
+        super().__init__(graph, start_node, side, speed, light_state)
+        self.images = images
+        self.set_image_by_direction(graph[start_node]["direction"])
+
+    def set_image_by_direction(self, direction):
+        if direction in self.images:
+            self.image = self.images[direction]
 ####################################################################################################################
 
 def spawn_vehicles_thread(
     vehicles_static, vehicles_ml, lock,
     entry_static, entry_ml,
     graph_static, graph_ml,
-    cars_img, trucks_img, motos_img,
+    cars_img, trucks_img, motos_img, schoolbus_img, policecar_img, semi_img, ambul_img, bulldoz_img,
     lights_state_static, lights_state_ml,
 ):
     global simulation_running
@@ -248,23 +297,44 @@ def spawn_vehicles_thread(
             entry_s = select_random_entry(entry_static)
             entry_m = select_random_entry(entry_ml)
             if entry_s and entry_m:
-                vehicle_type_s = random.choice(["car", "truck", "motorcycle"])
-                vehicle_type_m = random.choice(["car", "truck", "motorcycle"])
+                vehicle_type_s = random.choice(["car", "truck", "motorcycle", "schoolbus", "policecar","bulldozer","ambulance","semitruck",])
+                vehicle_type_m = random.choice(["car", "truck", "motorcycle", "schoolbus", "policecar","bulldozer","ambulance","semitruck",])
 
                 with lock:
                     if vehicle_type_s == "car":
                         new_vehicle_s = Car(cars_img, graph_static, entry_s, side="static", light_state=lights_state_static)
                     elif vehicle_type_s == "truck":
                         new_vehicle_s = Truck(trucks_img, graph_static, entry_s, side="static", light_state=lights_state_static)
-                    else:
+                    elif vehicle_type_s == "motorcycle":
                         new_vehicle_s = Motorcycle(motos_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+                    elif vehicle_type_s == "schoolbus":
+                        new_vehicle_s = Schoolbus(schoolbus_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+                    elif vehicle_type_s == "bulldozer":
+                        new_vehicle_s = Bulldozer(bulldoz_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+                    elif vehicle_type_s == "ambulance":
+                        new_vehicle_s = Ambulance(ambul_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+                    elif vehicle_type_s == "semitruck":
+                        new_vehicle_s = Semitruck(semi_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+                    else:
+                        new_vehicle_s = Policecar(policecar_img, graph_static, entry_s, side="static", light_state=lights_state_static)
+
 
                     if vehicle_type_m == "car":
                         new_vehicle_m = Car(cars_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
                     elif vehicle_type_m == "truck":
                         new_vehicle_m = Truck(trucks_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
-                    else:
+                    elif vehicle_type_m == "motorcycle":
                         new_vehicle_m = Motorcycle(motos_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
+                    elif vehicle_type_m == "schoolbus":
+                        new_vehicle_m = Schoolbus(schoolbus_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
+                    elif vehicle_type_m == "bulldozer":
+                        new_vehicle_m = Bulldozer(bulldoz_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
+                    elif vehicle_type_m == "ambulance":
+                        new_vehicle_m = Ambulance(ambul_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
+                    elif vehicle_type_m == "semitruck":
+                        new_vehicle_m = Semitruck(semi_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
+                    else:
+                        new_vehicle_m = Policecar(policecar_img, graph_ml, entry_m, side="ml", light_state=lights_state_ml)
 
                     vehicles_static.append(new_vehicle_s)
                     vehicles_ml.append(new_vehicle_m)
@@ -306,6 +376,41 @@ def main():
         "westside":  pygame.image.load("images/motorcycle_westside.png").convert_alpha()
     }
 
+    policecar_images = {
+        "southside": pygame.image.load("images/policecar_southside.png").convert_alpha(),
+        "northside": pygame.image.load("images/policecar_northside.png").convert_alpha(),
+        "eastside":  pygame.image.load("images/policecar_eastside.png").convert_alpha(),
+        "westside":  pygame.image.load("images/policecar_westside.png").convert_alpha()
+    }
+
+    bulldozer_images = {
+        "southside": pygame.image.load("images/bulldozer_southside.png").convert_alpha(),
+        "northside": pygame.image.load("images/bulldozer_northside.png").convert_alpha(),
+        "eastside":  pygame.image.load("images/bulldozer_eastside.png").convert_alpha(),
+        "westside":  pygame.image.load("images/bulldozer_westside.png").convert_alpha()
+    }
+
+    ambulance_images = {
+        "southside": pygame.image.load("images/ambulance_southside.png").convert_alpha(),
+        "northside": pygame.image.load("images/ambulance_northside.png").convert_alpha(),
+        "eastside":  pygame.image.load("images/ambulance_eastside.png").convert_alpha(),
+        "westside":  pygame.image.load("images/ambulance_westside.png").convert_alpha()
+    }
+
+    #two node size
+    schoolbus_images = {
+        "southside": pygame.image.load("images/schoolbus_southside.png").convert_alpha(),
+        "northside": pygame.image.load("images/schoolbus_northside.png").convert_alpha(),
+        "eastside":  pygame.image.load("images/schoolbus_eastside.png").convert_alpha(),
+        "westside":  pygame.image.load("images/schoolbus_westside.png").convert_alpha()
+    }
+    
+    semitruck_images = {
+        "southside": pygame.image.load("images/semitruck_southside.png").convert_alpha(),
+        "northside": pygame.image.load("images/semitruck_northside.png").convert_alpha(),
+        "eastside":  pygame.image.load("images/semitruck_eastside.png").convert_alpha(),
+        "westside":  pygame.image.load("images/semitruck_westside.png").convert_alpha()
+    }
     
     # Load traffic light images for horizontal and vertical nodes.
     horizontal_images = {
@@ -338,7 +443,7 @@ def main():
             vehicles_static, vehicles_ml, vehicles_lock,
             entry_static, entry_ml,
             graph_static, graph_ml,
-            car_images, truck_images, motorcycle_images,
+            car_images, truck_images, motorcycle_images, schoolbus_images, policecar_images, bulldozer_images, ambulance_images, semitruck_images,
             lights_state_static,
             lights_state_ml,
         ),
