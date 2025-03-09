@@ -352,7 +352,7 @@ def main():
     pygame.display.set_caption("Traffic Simulation: Static vs. Machine Learning Controlled Traffic Signals")
 
     # Load background
-    background_img = pygame.image.load("images/Grid_Sim_Background.jpg").convert()
+    background_img = pygame.image.load("images\Grid_Sim_Background.png").convert()
     bg_width, bg_height = background_img.get_size()
     screen = pygame.display.set_mode((bg_width, bg_height))
 
